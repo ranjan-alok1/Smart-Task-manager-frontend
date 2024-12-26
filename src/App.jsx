@@ -1,26 +1,21 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { NotificationProvider } from './contexts/NotificationContext';
-import Layout from './components/layout/Layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Dashboard from './pages/Dashboard';
-import Calendar from './pages/Calender';
-import Settings from './pages/Settings';
+import NotificationCenter from './components/notifications/NotificationCenter';
 
-const App = () => {
+function App() {
   return (
-    <ThemeProvider>
-      <NotificationProvider>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </Layout>
-      </NotificationProvider>
-    </ThemeProvider>
+    <Router>
+      <div>
+        <Toaster position="top-right" />
+        <NotificationCenter />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
   );
-};
+}
 
 export default App;
