@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 220 100% 50%;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input {
+    @apply w-full rounded-lg border-gray-300 dark:border-gray-600 
+           bg-white dark:bg-gray-700 
+           focus:border-primary-500 focus:ring-primary-500;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4;
+  }
+}
+
+/* Calendar Customization */
+.react-calendar {
+  @apply bg-transparent border-0 w-full;
+}
+
+.react-calendar__tile {
+  @apply rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700;
+}
+
+.react-calendar__tile--active {
+  @apply bg-primary-500 text-white;
+}
+
+/* Animation Classes */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
