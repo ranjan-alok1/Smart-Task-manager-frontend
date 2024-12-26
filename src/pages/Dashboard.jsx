@@ -5,6 +5,7 @@ import TaskList from '../components/tasks/TaskList';
 import Calendar from '../components/calendar/Calendar';
 import AIInsights from '../components/ai/AIInsights';
 import NotificationSettings from '../components/notifications/NotificationSettings';
+import NotificationHistory from '../components/notifications/NotificationHistory';
 import { getTasks, createTask, updateTask, deleteTask } from '../services/api';
 
 const showNotification = (title, message) => {
@@ -168,7 +169,7 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header with notification icon */}
+      {/* Header with notification icons */}
       <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl shadow-sm border border-gray-100 p-4 mb-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -176,30 +177,34 @@ const Dashboard = () => {
               Smart Task Manager
             </h1>
             <div className="h-6 w-[2px] bg-gradient-to-b from-blue-200 to-purple-200 rounded-full"></div>
-            <p className="text-gray-500 text-sm">Manage your tasks efficiently utilizing AI insights</p>
+            <p className="text-gray-500 text-sm">Manage your tasks efficiently</p>
           </div>
-          <div className="relative">
-            <button
-              id="notification-icon"
-              onClick={() => setShowNotificationSettings(!showNotificationSettings)}
-              className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 relative group"
-              title="Notification Settings"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-            </button>
-
-            {/* Notification Settings Panel */}
-            {showNotificationSettings && (
-              <div 
-                id="notification-settings-panel"
-                className="absolute right-0 mt-3 w-96 z-50 transform transition-all duration-300 ease-in-out animate-fade-in-down"
-                style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}
+          <div className="flex items-center gap-3">
+            <NotificationHistory />
+            <div className="relative">
+              <button
+                id="notification-icon"
+                onClick={() => setShowNotificationSettings(!showNotificationSettings)}
+                className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 relative group"
+                title="Notification Settings"
               >
-                <NotificationSettings onClose={() => setShowNotificationSettings(false)} />
-              </div>
-            )}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
+
+              {/* Notification Settings Panel */}
+              {showNotificationSettings && (
+                <div 
+                  id="notification-settings-panel"
+                  className="absolute right-0 mt-3 w-96 z-50 transform transition-all duration-300 ease-in-out animate-fade-in-down"
+                  style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}
+                >
+                  <NotificationSettings onClose={() => setShowNotificationSettings(false)} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

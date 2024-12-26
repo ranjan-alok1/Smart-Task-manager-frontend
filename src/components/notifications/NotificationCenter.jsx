@@ -12,10 +12,14 @@ const NotificationCenter = () => {
 
         if (!settings.enabled) return;
 
-        const BASE_URL = import.meta.env.VITE_API_URL?.split('/api/v1')[0] || 'http://localhost:8080';
+        // Use the full API URL for Socket.IO connection
+        const BASE_URL = import.meta.env.VITE_API_URL.replace('/api/v1', '');
         const socket = io(BASE_URL, {
             path: '/socket.io',
-            transports: ['websocket', 'polling']
+            transports: ['websocket', 'polling'],
+            secure: true, // Enable for HTTPS
+            rejectUnauthorized: false, // Required for self-signed certificates
+            withCredentials: true
         });
 
         const showNotification = (notification) => {
@@ -40,6 +44,13 @@ const NotificationCenter = () => {
                     icon: '/notification-icon.png'
                 });
             }
+
+            // Dispatch event for notification history
+            window.dispatchEvent(
+                new CustomEvent('newNotification', {
+                    detail: { type, title, message, task }
+                })
+            );
         };
 
         socket.on('connect', () => {
@@ -48,7 +59,7 @@ const NotificationCenter = () => {
 
         socket.on('notification', showNotification);
 
-        socket.on('connect_error', () => {
+        socket.on('connect_error', (error) => {
             toast.error('Failed to connect to notification service');
         });
 
